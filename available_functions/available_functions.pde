@@ -2,11 +2,12 @@
 // stuff I used that is in the painting program
 int
 void setup()
-void loop()
+void draw()
 background(255)
 fill(0);
 textSize(20);
 text()
+size();
 noStroke();
 width
 height
@@ -33,5 +34,6 @@ mouseButton
 void keyPressed()
 int(random(a,b))
 rectMode(CENTER)
+ellipseMode(RADIUS);
 frameRate(60)
 ellipse()
