@@ -1,4 +1,15 @@
+// This is a special data type.  It is a special array.  Arrays are data types like int or float but instead of
+// holding onto just one number at a time they can hold multiple different numbers.  Think of them like a data table,
+// or mabye like a shelf with numbers on it to keep everything organized.  Or some people think of them like a 
+// digital filing cabinet.  
+//
+// This one is special in another way... its not just holding lots of ints or floats... 
+// its hodling lots of "balls" or objects created by the Ball class I define below.
+// In the following line I'm just setting up the array, but I haven't put anything in it yet.
 ArrayList<Ball> balls = new ArrayList<Ball>();
+
+// this is a single variable that will hold onto just one ball object at a time... I use it below
+// to make the conditionals more readable and easier to understand.
 Ball currentBall;
 
 // moving rectangle data
