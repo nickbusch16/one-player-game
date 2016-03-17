@@ -5,6 +5,7 @@ float rectangleX;
 float rectangleY;
 float rectangleWidth;
 float rectangleHeight;
+float radius = 20;
 
 void setup()
 {
@@ -22,12 +23,38 @@ void draw()
 {
   background(0);  
   
+  // move down
+  if(keyCode == 40)
+  {
+    if(rectangleY >= height-rectangleHeight/2)
+    {
+      rectangleY = height-rectangleHeight/2;
+    }
+    else
+    {
+      rectangleY += 5;
+    }
+  }
+  
+  // move up
+  if(keyCode == 38)
+  {
+    if(rectangleY <= 0+rectangleHeight/2)
+    {
+      rectangleY = 0+rectangleHeight/2;
+    }
+    else
+    {
+      rectangleY -= 5;
+    }
+  }
+  
   // move left
   if(keyCode == 37)
   {
-    if(rectangleX <= 0+rectangleWidth*2)
+    if(rectangleX <= 0+rectangleWidth/2)
     {
-      rectangleX = 0;
+      rectangleX = 0+rectangleWidth/2-1;
     }
     else
     {
@@ -35,11 +62,12 @@ void draw()
     }
   }
   
+  // move right
   if(keyCode == 39)
   {
-    if(rectangleX >= width-rectangleWidth*2)
+    if(rectangleX >= width-rectangleWidth/2)
     {
-       rectangleX = width; 
+       rectangleX = width-rectangleWidth/2; 
     }
     else
     {
@@ -55,6 +83,12 @@ void draw()
  {
     balls.get(i).display();
     balls.get(i).fall();
+    if(balls.get(i).isColliding(rectangleX, rectangleY))
+    {
+     println("collision detected"); 
+     fill(255,0,0);
+     rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+    }
  }
  
  
@@ -64,7 +98,7 @@ void mousePressed()
 {
    fill(255);
    //noStroke();
-   balls.add(new Ball(mouseX, mouseY, 20, 20, 20, 20, 20));
+   balls.add(new Ball(mouseX, mouseY, radius, rectangleX, rectangleY, rectangleWidth, rectangleHeight));
    int lastBall = balls.size()-1;
    balls.get(lastBall).display();
    balls.get(lastBall).fall();
@@ -119,17 +153,10 @@ class Ball
    }
  }
  
-  boolean isCollidingCircleRectangle(
-      float circleX,
-      float circleY,
-      float radius,
-      float rectangleX,
-      float rectangleY,
-      float rectangleWidth,
-      float rectangleHeight)
+  boolean isColliding(float _rectangleX, float _rectangleY)
   {
-    float circleDistanceX = abs(circleX - rectangleX - rectangleWidth/2);
-    float circleDistanceY = abs(circleY - rectangleY - rectangleHeight/2);
+    float circleDistanceX = abs(circleX - _rectangleX - rectangleWidth/2);
+    float circleDistanceY = abs(circleY - _rectangleY - rectangleHeight/2);
    
     if (circleDistanceX > (rectangleWidth/2 + radius)) { return false; }
     if (circleDistanceY > (rectangleHeight/2 + radius)) { return false; }
