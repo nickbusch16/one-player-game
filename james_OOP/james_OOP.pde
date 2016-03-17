@@ -5,26 +5,19 @@ int boxX, boxY = 1;
 int boxWidth = 20; 
 int boxHeight = 20;
 
-leftCircle myCircle1;
-leftCircle myCircle2; // Two objects!
-rightCircle myCircle3;
-rightCircle myCircle4;
-topCircle myCircle5;
-topCircle myCircle6;
-bottomCircle myCircle7;
-bottomCircle myCircle8;
+Bullet firstBullet;
+Bullet secondBullet;
+Bullet thirdBullet;
+Bullet fourthBullet;
 
 void setup() {
   size(500, 500);
   // Arguments go inside the parentheses when the object is constructed.  
-  myCircle1 = new leftCircle(color(51), 0, 100, 1); 
-  myCircle2 = new leftCircle(color(151), 0, 200, 2);
-  myCircle3 = new rightCircle(color(51), 0, 100, 3); 
-  myCircle4 = new rightCircle(color(151), 0, 200, 4);
-  myCircle5 = new topCircle(color(51), 200, 0, 5); 
-  myCircle6 = new topCircle(color(151), 100, 0, 6);
-  myCircle7 = new bottomCircle(color(51), 200, 0, 7); 
-  myCircle8 = new bottomCircle(color(151), 100, 0, 8);
+  firstBullet = new Bullet(color(51), 0, 100, 1,1); 
+  secondBullet = new Bullet(color(51), 0, 100, 4,4);
+  thirdBullet = new Bullet(color(51), 0, 100, 2,4);
+  fourthBullet = new Bullet(color(51), 0, 100, 4,5);
+
   
   rectMode(CENTER);
   size(500, 500);
@@ -35,22 +28,16 @@ void setup() {
 
 void draw() {
   background(255);
-  myCircle1.move();
-  myCircle1.display();
-  myCircle2.move();
-  myCircle2.display();
-  myCircle3.move();
-  myCircle3.display();
-  myCircle4.move();
-  myCircle4.display();
-  myCircle5.move();
-  myCircle5.display();
-  myCircle6.move();
-  myCircle6.display();
-  myCircle7.move();
-  myCircle7.display();
-  myCircle8.move();
-  myCircle8.display();
+  firstBullet.moveX(true);
+  firstBullet.display();
+  secondBullet.moveX(false);
+  secondBullet.display();
+  
+  thirdBullet.moveY(true);
+  thirdBullet.display();
+  fourthBullet.moveY(false);
+  fourthBullet.display();
+  
   if(gameOver == 0)  // run this chunk while the game is still going
   {
     
@@ -116,6 +103,92 @@ void draw() {
    }
   
 }
+
+class Bullet
+{ 
+  color c;
+  float xpos;
+  float ypos;
+  float xspeed;
+  float yspeed;
+ 
+
+  // The Constructor is defined with parameters.  
+  Bullet(
+    color tempC, 
+    float tempXpos, 
+    float tempYpos, 
+    float tempXspeed,
+    float tempYspeed)
+    
+    
+  { 
+    c = tempC;
+    xpos = tempXpos;
+    ypos = tempYpos;
+    xspeed = tempXspeed;
+    yspeed = tempYspeed;
+  }
+
+  void display() 
+  {
+    noStroke();
+    fill(c);
+    ellipseMode(CENTER);
+    ellipse(xpos, ypos, 30, 30);
+  }
+
+  void moveX(boolean fromLeft) // if true comes from top, if false comes from bottom
+  {
+      if(fromLeft)
+      {
+        xpos = xpos + xspeed;
+        if (xpos > width) 
+        {
+          xpos = 0;
+          ypos = int(random(0, width));
+          score++;
+        }
+      }
+      else
+      {
+         xpos = xpos - xspeed;
+        if (xpos < 0) 
+        {
+          xpos = width;
+          ypos = int(random(0, width));
+          score++;
+        }
+      }
+   }
+  
+  
+  void moveY(boolean fromTop)
+  {
+    if(fromTop)
+    {
+      ypos = ypos + yspeed;
+      if (ypos > height) 
+      {
+        ypos = 0;
+        xpos = int(random(0, height));
+        score++;
+      }
+    }
+    
+    else
+    {
+       ypos = ypos - yspeed;
+      if (ypos < 0) 
+      {
+        ypos = height;
+        xpos = int(random(0, height));
+        score++;
+      }
+    }
+  }
+}
+
 
 // Even though there are multiple objects, only  one class is needed. 
 // No matter how many cookies you make, only one cookie cutter is needed.
