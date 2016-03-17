@@ -9,7 +9,7 @@ float radius = 20;
 
 void setup()
 {
- size(400,400);
+ size(400,600);
  background(0);
  rectMode(CENTER);
  
@@ -79,29 +79,46 @@ void draw()
   
   
  // draw all the balls again at the start... & make sure they fall
- for(int i = 0; i < balls.size(); i++)
+ //for(int i = 0; i < balls.size(); i++)
+ //{
+ //   balls.get(i).display();
+ //   balls.get(i).fall();
+ //   if(balls.get(i).isColliding(rectangleX, rectangleY))
+ //   {
+ //    println("collision detected"); 
+ //    fill(255,0,0);
+ //    rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+ //   }
+ //}
+ 
+ 
+ // just show the ball most recently created
+ if(balls.size() != 0)  // make sure a ball has been created before you try to show it...
  {
-    balls.get(i).display();
-    balls.get(i).fall();
-    if(balls.get(i).isColliding(rectangleX, rectangleY))
-    {
-     println("collision detected"); 
+   balls.get(balls.size()-1).display();
+   balls.get(balls.size()-1).fall();
+   if(balls.get(balls.size()-1).isColliding(rectangleX, rectangleY))
+   {
+     println("collision detected");   // turn the shapes red if there is a collision.  This is where you'd end the game
      fill(255,0,0);
      rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
-    }
+   }
  }
  
  
 }
 
-void mousePressed()
+void keyPressed()
 {
-   fill(255);
-   //noStroke();
-   balls.add(new Ball(mouseX, mouseY, radius, rectangleX, rectangleY, rectangleWidth, rectangleHeight));
-   int lastBall = balls.size()-1;
-   balls.get(lastBall).display();
-   balls.get(lastBall).fall();
+   if(key == 'b')
+   {
+     fill(255);
+     //noStroke();
+     balls.add(new Ball(random(0,width), 0, radius, rectangleX, rectangleY, rectangleWidth, rectangleHeight));
+     int lastBall = balls.size()-1;
+     balls.get(lastBall).display();
+     balls.get(lastBall).fall();
+   }
 }
 
 
@@ -150,6 +167,7 @@ class Ball
    if(circleY >= height)
    {
      circleY = 0;
+     balls.add(new Ball(random(0,width), 0, radius, rectangleX, rectangleY, rectangleWidth, rectangleHeight));
    }
  }
  

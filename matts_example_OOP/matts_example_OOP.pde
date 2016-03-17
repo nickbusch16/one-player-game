@@ -1,4 +1,5 @@
 ArrayList<Ball> balls = new ArrayList<Ball>();
+Ball currentBall;
 
 // moving rectangle data
 float rectangleX;
@@ -6,121 +7,125 @@ float rectangleY;
 float rectangleWidth;
 float rectangleHeight;
 float radius = 20;
+int boxSpeed = 6;
+
+boolean gameOver = false;
+int score = 0;
 
 void setup()
 {
- size(400,600);
- background(0);
- rectMode(CENTER);
+   noStroke();
+   size(400,600);
+   background(255);
+   rectMode(CENTER);
+   frameRate(60);
+   
+   rectangleX = width/2;
+   rectangleY = height*0.75;
+   rectangleWidth = 60;
+   rectangleHeight = 20;
  
- rectangleX = width/2;
- rectangleY = height/2;
- rectangleWidth = 50;
- rectangleHeight = 50;
+   // make, show, and drop new ball
+   balls.add(new Ball(random(0,width), 1, radius, rectangleX, rectangleY, rectangleWidth, rectangleHeight));
+   int lastBall = balls.size()-1;
+   balls.get(lastBall).display();
+   balls.get(lastBall).fall();
 }
 
 void draw()
 {
-  background(0);  
-  
-  // move down
-  if(keyCode == 40)
+  if(!gameOver)
   {
-    if(rectangleY >= height-rectangleHeight/2)
-    {
-      rectangleY = height-rectangleHeight/2;
-    }
-    else
-    {
-      rectangleY += 5;
-    }
+      background(255);  
+      noStroke();
+      
+      // print the current score to the screen
+      fill(0);
+      textSize(20);
+      text("Score: "+score, width - 100, 30);
+      
+      // draw black rectangular band
+      fill(0);
+      rect(width/2, 0.75*height, width, rectangleHeight);
+      
+      //  Move the white rectangular "hole"
+      fill(255);
+    
+    
+      if(keyCode == 37)  // move left
+      {
+        if(rectangleX <= 0+rectangleWidth/2)
+        {
+          rectangleX = 0+rectangleWidth/2-1;
+        }
+        else
+        {
+          rectangleX -= boxSpeed;
+        }
+      }
+    
+    
+      if(keyCode == 39)  // move right
+      {
+        if(rectangleX >= width-rectangleWidth/2)
+        {
+           rectangleX = width-rectangleWidth/2; 
+        }
+        else
+        {
+          rectangleX += boxSpeed;
+        }
+      }
+     
+      // draw the white rectangular "hole"
+      rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+    
+     
+     // just show the ball most recently created
+     if(balls.size() != 0)  // make sure a ball has been created before you try to show it...
+     {
+       currentBall = balls.get(balls.size()-1);
+       currentBall.display();
+       currentBall.fall();
+       
+       // if the ball isn't colliding with the "hole" and is at the height of the black rectangle then...
+       if(!currentBall.isColliding(rectangleX, rectangleY)
+           && currentBall.ballHeight()>= 0.75*height
+           && currentBall.ballHeight()< 0.75*height+rectangleHeight)
+       {
+         println("collision detected");   // turn the shapes red if there is a collision.  This is where you'd end the game
+         //fill(255,0,0);
+         //rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+         gameOver = true;
+       }
+     }
   }
   
-  // move up
-  if(keyCode == 38)
+  else
   {
-    if(rectangleY <= 0+rectangleHeight/2)
-    {
-      rectangleY = 0+rectangleHeight/2;
-    }
-    else
-    {
-      rectangleY -= 5;
-    }
+    background(0,255,0);
+    fill(255);
+    textSize(32);
+    text("Game Over!",width/2-90,height/2-180);
+    text("Score: " + score,width/2-60,height/2);
+    text("Press R to Restart",width/2-130,height/2+80);
   }
-  
-  // move left
-  if(keyCode == 37)
-  {
-    if(rectangleX <= 0+rectangleWidth/2)
-    {
-      rectangleX = 0+rectangleWidth/2-1;
-    }
-    else
-    {
-      rectangleX -= 5;
-    }
-  }
-  
-  // move right
-  if(keyCode == 39)
-  {
-    if(rectangleX >= width-rectangleWidth/2)
-    {
-       rectangleX = width-rectangleWidth/2; 
-    }
-    else
-    {
-      rectangleX += 5;
-    }
-  }
-  
-  rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
-  
-  
- // draw all the balls again at the start... & make sure they fall
- //for(int i = 0; i < balls.size(); i++)
- //{
- //   balls.get(i).display();
- //   balls.get(i).fall();
- //   if(balls.get(i).isColliding(rectangleX, rectangleY))
- //   {
- //    println("collision detected"); 
- //    fill(255,0,0);
- //    rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
- //   }
- //}
- 
- 
- // just show the ball most recently created
- if(balls.size() != 0)
- {
-   balls.get(balls.size()-1).display();
-   balls.get(balls.size()-1).fall();
-   if(balls.get(balls.size()-1).isColliding(rectangleX, rectangleY))
-   {
-     println("collision detected"); 
-     fill(255,0,0);
-     rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
-   }
- }
- 
- 
 }
 
+// this resets the game.  It works at anytime during the game
 void keyPressed()
 {
-   if(key == 'b')
-   {
-     fill(255);
-     //noStroke();
-     balls.add(new Ball(random(0,width), 0, radius, rectangleX, rectangleY, rectangleWidth, rectangleHeight));
-     int lastBall = balls.size()-1;
-     balls.get(lastBall).display();
-     balls.get(lastBall).fall();
-   }
+  if(key == 'r' | key == 'R')
+  {
+    gameOver = false;
+    score = 0;
+     // make, show, and drop new ball
+   balls.add(new Ball(random(0,width), 1, radius, rectangleX, rectangleY, rectangleWidth, rectangleHeight));
+   int lastBall = balls.size()-1;
+   balls.get(lastBall).display();
+   balls.get(lastBall).fall();
+ }
 }
-
 
 class Ball
 {
@@ -132,7 +137,6 @@ class Ball
    float rectangleY;
    float rectangleWidth;
    float rectangleHeight;
-   
    
  // constructor
  Ball(
@@ -154,9 +158,9 @@ class Ball
  }
  
  // methods
- 
  void display()
  {
+   fill(0,255,0);
    ellipseMode(CENTER);
    ellipse(circleX, circleY, radius*2, radius*2);
  }
@@ -168,8 +172,10 @@ class Ball
    {
      circleY = 0;
      balls.add(new Ball(random(0,width), 0, radius, rectangleX, rectangleY, rectangleWidth, rectangleHeight));
+     score++;
    }
  }
+ 
  
   boolean isColliding(float _rectangleX, float _rectangleY)
   {
@@ -187,6 +193,10 @@ class Ball
    
     return (cornerDistance_sq <= pow(radius,2));
   }
- 
+  
+  float ballHeight()
+  {
+   return circleY; 
+  }
  
 }
