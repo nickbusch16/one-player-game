@@ -1,52 +1,10 @@
-PImage bg;
+PImage img;
 int y;
 int keyPresses;
 
 void setup() {
 size(640, 360);
-//background image must be same size as parameters.
-bg = loadImage("http://cache4.asset-cache.net/xd/491968778.jpg?v=1&c=IWSAsset&k=2&d=DF8D445051B40C743F37857AAD8FD6BADD9BE2D9A1DB104C06D48456890DC1699396529B3C57E914");//start screen
-bg = loadImage("file:///Users/user/Desktop/Untitled-2.jpg");//first intro slide
-bg = loadImage("file:///Users/user/Desktop/Untitled-1.jpg");//second intro slide
-bg = loadImage("file:///Users/user/Desktop/First%20Choice.jpg");//The first choice
-bg = loadImage("file:///Users/user/Desktop/Second%20choice.jpg");//choice A
-bg = loadImage("file:///Users/user/Desktop/First%20GAMEOVER%20Screen.jpg");// First game over, choice B
-bg = loadImage("file:///Users/user/Desktop/ankle%20transition.jpg");
-bg = loadImage("file:///Users/user/Desktop/ankleChoice.jpg");
-bg = loadImage("file:///Users/user/Desktop/PassOut2.jpg");
-bg = loadImage("file:///Users/user/Desktop/wakeUp1.jpg");
-bg = loadImage("file:///Users/user/Desktop/arnoldEncounter.jpg");
-bg = loadImage("file:///Users/user/Desktop/Choice4.jpg");
-bg = loadImage("file:///Users/user/Desktop/ArnoldBeingTamed.jpg");
-bg = loadImage("file:///Users/user/Desktop/gameOver2.jpg");
-bg = loadImage("file:///Users/user/Desktop/whereAmI.jpg");
-bg = loadImage("file:///Users/user/Desktop/fallingOver.jpg");
-bg = loadImage("file:///Users/user/Desktop/ExplanationP1.jpg");
-bg = loadImage("file:///Users/user/Desktop/explanationP2.jpg");
-bg = loadImage("file:///Users/user/Desktop/dublinArnold.jpg");
-bg = loadImage("file:///Users/user/Desktop/aBeginningToAnEnd.jpg");
-bg = loadImage("file:///Users/user/Desktop/toBeContinued.jpg");
 
-toBeContinued();
-aBeginningToAnEnd();
-dublinArnold();
-explanationP2();
-explanationP1();
-fallingOver();
-whereAmI();
-gameOver2();
-arnoldBeingTamed();
-choice4();
-arnoldEncounter();
-wakeUp1();
-passOut();
-ankleChoice();
-ankleTrans();
-gameOver1();
-choiceA();
-firstChoice();
-thirdSlide();
-secondSlide();
 introScreen();
 }
 
@@ -197,8 +155,8 @@ void keyPressed()
 
 void introScreen()
 {
-  bg = loadImage("http://cache4.asset-cache.net/xd/491968778.jpg?v=1&c=IWSAsset&k=2&d=DF8D445051B40C743F37857AAD8FD6BADD9BE2D9A1DB104C06D48456890DC1699396529B3C57E914");
-background(bg);
+  img = loadImage("http://cache4.asset-cache.net/xd/491968778.jpg?v=1&c=IWSAsset&k=2&d=DF8D445051B40C743F37857AAD8FD6BADD9BE2D9A1DB104C06D48456890DC1699396529B3C57E914");
+background(img);
   PFont font;
   fill(0);
 //how to create a font, however its not working for some reason.
@@ -211,101 +169,101 @@ textSize(60);
 }
 void secondSlide()
 {
-bg = loadImage("file:///Users/user/Desktop/Untitled-2.jpg");
-background(bg);
+img = loadImage("Untitled-2.jpg");
+background(img);
 }
 void thirdSlide()
 {
-  bg=loadImage("file:///Users/user/Desktop/Untitled-1.jpg");
-  background(bg);
+  img =loadImage("Untitled-1.jpg");
+  background(img);
   }
 void firstChoice()
 {
-  bg = loadImage("file:///Users/user/Desktop/First%20Choice.jpg");
-  background(bg);
+  img = loadImage("FirstChoice.jpg");
+  background(img);
   }
 void choiceA()
 {
- bg = loadImage("file:///Users/user/Desktop/Second%20choice.jpg");
- background(bg);
+ img  = loadImage("choice2.jpg");
+ background(img);
   }
 void gameOver1()
 {
-  bg = loadImage("file:///Users/user/Desktop/First%20GAMEOVER%20Screen.jpg");
-  background(bg);
+  img = loadImage("FirstGAMEOVERScreen.jpg");
+  background(img);
   }
 void ankleTrans()
 {
-  bg = loadImage("file:///Users/user/Desktop/ankle%20transition.jpg");
-  background(bg);
+  img = loadImage("ankletransition.jpg");
+  background(img);
   }
 void ankleChoice()
 {
-  bg = loadImage("file:///Users/user/Desktop/ankleChoice.jpg");
-  background(bg);
+  img = loadImage("ankleChoice.jpg");
+  background(img);
   }
 void passOut()
 {
-  bg = loadImage("file:///Users/user/Desktop/PassOut2.jpg");
-  background(bg);
+  img = loadImage("PassOut2.jpg");
+  background(img);
 }
 void wakeUp1()
 {
-  bg = loadImage("file:///Users/user/Desktop/wakeUp1.jpg");
-  background (bg);
+  img = loadImage("wakeUp1.jpg");
+  background (img);
 }
 void arnoldEncounter()
 {
-  bg = loadImage("file:///Users/user/Desktop/arnoldEncounter.jpg");
-  background (bg);
+  img = loadImage("arnoldEncounter.jpg");
+  background (img);
 }
 void choice4()
 {
-  bg = loadImage("file:///Users/user/Desktop/Choice4.jpg");
-  background(bg);
+  img = loadImage("Choice4.jpg");
+  background(img);
 }
 void arnoldBeingTamed()
 {
-  bg = loadImage("file:///Users/user/Desktop/ArnoldBeingTamed.jpg");
-  background(bg);
+  img = loadImage("ArnoldBeingTamed.jpg");
+  background(img);
 }
 void gameOver2()
 {
-  bg = loadImage("file:///Users/user/Desktop/gameOver2.jpg");
-  background(bg);
+  img = loadImage("gameOver2.jpg");
+  background(img);
 }
 void whereAmI()
 {
-  bg = loadImage("file:///Users/user/Desktop/whereAmI.jpg");
-  background(bg);
+  img = loadImage("whereAmI.jpg");
+  background(img);
 }
 void fallingOver()
 {
-  bg = loadImage("file:///Users/user/Desktop/fallingOver.jpg");
-  background(bg);
+  img = loadImage("fallingOver.jpg");
+  background(img);
 }
 void explanationP1()
 {
- bg = loadImage("file:///Users/user/Desktop/ExplanationP1.jpg");
-background(bg);
+ img = loadImage("ExplanationP1.jpg");
+background(img);
 }
 void explanationP2()
 {
-  bg = loadImage("file:///Users/user/Desktop/explanationP2.jpg");
-  background(bg);
+  img = loadImage("explanationP2.jpg");
+  background(img);
 }
 void dublinArnold()
 {
- bg = loadImage("file:///Users/user/Desktop/dublinArnold.jpg");
-background(bg); 
+ img = loadImage("dublinArnold.jpg");
+background(img); 
 }
 void aBeginningToAnEnd()
 {
- bg = loadImage("file:///Users/user/Desktop/aBeginningToAnEnd.jpg"); 
- background(bg);
+ img = loadImage("aBeginningToAnEnd.jpg"); 
+ background(img);
 }
 void toBeContinued()
 {
- bg = loadImage("file:///Users/user/Desktop/toBeContinued.jpg");
- background(bg);
+ img = loadImage("toBeContinued.jpg");
+ background(img);
 }
